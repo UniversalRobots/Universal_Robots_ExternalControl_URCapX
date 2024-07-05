@@ -1,0 +1,14 @@
+
+# Ignore specific files
+.DS_Store
+
+# Ignore directories
+/target
+/dist
+/urcap-generator
+/.idea
+.vscode/
+/node_modules
+
+# Ignore specific file types
+package-lock.json

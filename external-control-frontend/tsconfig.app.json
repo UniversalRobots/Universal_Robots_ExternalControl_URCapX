@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "target": "ES2022",
+    // strict mode options
+    "strictNullChecks": true
+  },
+  "files": ["src/main.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.worker.ts"]
+}

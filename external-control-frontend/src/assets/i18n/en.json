@@ -1,0 +1,23 @@
+{
+  "program": {
+    "tree": {
+      "nodes": {
+        "universal-robots-external-control-external-control-program": "External Control Program"
+      }
+    }
+  },
+  "application": {
+    "nodes": {
+      "universal-robots-external-control-external-control-application": {
+        "title": "External Control Application",
+        "supportiveText": "Connect to ROS/ROS2 driver, Isaac Sim driver, and Universal Robots Client Library"
+      }
+    }
+  },
+  "presenter": {
+    "port-input-description": "Enter port number",
+    "robotIP-input-description": "Enter computer host IP address",
+    "confirm-button": "Confirm",
+    "update-button": "Update program"
+  }
+}

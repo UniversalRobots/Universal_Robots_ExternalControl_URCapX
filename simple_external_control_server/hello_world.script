@@ -1,0 +1,10 @@
+
+def test_func():
+  textmsg("test function")
+end
+
+# NODE_CONTROL_LOOP_BEGINS
+
+test_func()
+
+# NODE_CONTROL_LOOP_ENDS

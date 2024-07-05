@@ -1,0 +1,22 @@
+{
+  "applicationNodes": [
+    {
+      "translationPath": "assets/i18n/",
+      "behaviorURI": "external-control-application.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "universal-robots-external-control-external-control-application",
+      "iconURI": "assets/icons/ec.svg"
+    }
+  ],
+  "programNodes": [
+    {
+      "excludeFromToolbox": false,
+      "translationPath": "assets/i18n/",
+      "iconURI": "assets/icons/ecs.svg",
+      "behaviorURI": "external-control-program.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "universal-robots-external-control-external-control-program"
+    }
+  ],
+  "smartSkills": []
+}
