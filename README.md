@@ -53,16 +53,10 @@ You can find more documentation on the `docker exec` functionality [here](https:
 
 Your terminal prompt should have switched from `psxdev@<vsc_container_id>:/pwd/$ ` to `<ursim_container_id>:/pwd/# `, meaning you can now execute commands within your simulator docker container.
 
-List the active docker containers with
+Inside the simulator docker container, you can view the backend output using the docker `logs` functionality. The following will show the terminal output from the `universal-robots_external-control_external-control-backend`:
 
 ```shell
-docker ps
-```
-
-View the backend output by using the container ID associated with the `universal-robots_external-control_external-control-backend` image (e.g. 8e3)
-
-```shell
-docker logs -f <container_id>
+docker logs -f universal-robots_external-control_external-control-backend
 ```
 
 ## Frontend Contribution
