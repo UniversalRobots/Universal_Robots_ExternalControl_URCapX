@@ -12,17 +12,18 @@
         "title": "External Control",
         "supportiveText": "Connect to ROS/ROS 2 driver and Universal Robots Client Library",
         "description": {
-          "line1": "This URCap allows you to inject URScript code to into a program from an external application upon request.",
+          "line1": "This URCap allows you to inject URScript code into a program from an external application upon request.",
           "line2": "It is primarily meant for connecting the robot to the Universal ROS or ROS 2 drivers."
         },
         "settings": {
           "header": "Settings",
-          "description": "Please enter the host name or IP adress and port number the repote application providing the injected URScript code."
+          "description": "Please enter the host name or IP address and port number of the remote application providing the injected URScript code."
         },
         "important": {
           "header": "Important",
           "line1": "The ROS or ROS 2 drivers needs the Primary client, Secondary client and Real-Time Data Exchange services to be enabled.",
-          "line2": "Ethernet/IP and Profinet fieldbusses have to be disbaled for proper operation of the ROS or ROS 2 drivers."
+          "line2": "Ethernet/IP and Profinet fieldbusses have to be disabled for proper operation of the ROS or ROS 2 drivers.",
+          "line3": "The URScript is not fetched when playing the program. Use the 'update program' button in the program node to inject the URScript into the program, such that it is there when you press play."
         },
         "serviceHowToEnable": {
           "text": "To enable or disabled the services, go to:",

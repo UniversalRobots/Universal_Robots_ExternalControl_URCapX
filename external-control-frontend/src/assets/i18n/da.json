@@ -22,7 +22,8 @@
         "important": {
           "header": "Vigtigt",
           "line1": "ROS eller ROS 2 drivere kræver, at Primary client, Secondary client og Real-Time Data Exchange tjenester er aktiveret.",
-          "line2": "Ethernet/IP og Profinet feltbusser skal være deaktiveret for korrekt drift af ROS eller ROS 2 drivere."
+          "line2": "Ethernet/IP og Profinet feltbusser skal være deaktiveret for korrekt drift af ROS eller ROS 2 drivere.",
+          "line3": "URScriptet bliver ikke hentet, når programmet afspilles. Brug knappen 'update program' i program noden til at hente URScriptet, så det ligger i programmet, når programmet afspilles."
         },
         "serviceHowToEnable": {
           "text": "For at aktivere eller deaktivere tjenesterne, gå til:",
