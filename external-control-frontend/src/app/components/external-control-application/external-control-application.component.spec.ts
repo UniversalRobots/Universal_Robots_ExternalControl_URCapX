@@ -78,6 +78,15 @@ describe('ExternalControlApplicationComponent', () => {
   });
 
   /**
+   * Test to ensure the ngOnChanges method updates the translation language DE.
+   */
+  it('should update translation language on robotSettings change', () => {
+    component.robotSettings = { language: 'de', units: null } as RobotSettings;
+    component.ngOnChanges({ robotSettings: { currentValue: component.robotSettings } } as any);
+    expect(component.currentLanguage).toBe('de');
+  });
+
+  /**
    * Test to ensure the ngOnChanges method sets the default language if the
    * language is not supported.
    */

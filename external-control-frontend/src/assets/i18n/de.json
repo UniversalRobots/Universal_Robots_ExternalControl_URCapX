@@ -1,0 +1,41 @@
+{
+  "program": {
+    "tree": {
+      "nodes": {
+        "universal-robots-external-control-external-control-program": "External Control Programm"
+      }
+    }
+  },
+  "application": {
+    "nodes": {
+      "universal-robots-external-control-external-control-application": {
+        "title": "External Control",
+        "supportiveText": "Verbindung zu ROS/ROS 2 oder Universal Robots Client Library",
+        "description": {
+          "line1": "Dieses URCap ermöglicht es Ihnen, URScript-Code auf Anfrage von einer externen Anwendung in ein Programm einzufügen.",
+          "line2": "Es ist in erster Linie für die Verbindung des Roboters mit dem ROS oder ROS 2-Treiber gedacht."
+        },
+        "settings": {
+          "header": "Einstellungen",
+          "description": "Bitte geben Sie den Hostnamen oder die IP-Adresse und die Portnummer der externen Anwendung ein, die den eingefügten URScript-Code bereitstellt."
+        },
+        "important": {
+          "header": "Wichtig",
+          "line1": "Der ROS oder ROS 2-Treiber benötigt die folgenden Dienste, um ordnungsgemäß zu funktionieren: Primary Interface, Real-Time Data Exchange (RTDE)",
+          "line2": "Ethernet/IP und Profinet Feldbusse müssen deaktiviert werden, damit der ROS oder ROS 2-Treiber ordnungsgemäß funktioniert."
+        },
+        "serviceHowToEnable": {
+          "text": "Um die Dienste zu aktivieren, gehen Sie zu:",
+          "settings": "Einstellungen",
+          "security": "Sicherheit",
+          "services": "Dienste"
+        }
+      }
+    }
+  },
+  "presenter": {
+    "port-input-description": "Geben Sie die Portnummer auf dem externen Computer für die Bereitstellung des URScript-Codes ein",
+    "robotIP-input-description": "Geben Sie die IP-Adresse oder den Hostnamen des externen Computers ein",
+    "update-button": "URScript code aktualisieren"
+  }
+}
