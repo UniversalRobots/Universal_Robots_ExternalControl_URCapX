@@ -1,6 +1,6 @@
 {
   "name": "external-control",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "cd external-control-frontend && npm run start",
     "install-frontend": "cd external-control-frontend && npm install",
