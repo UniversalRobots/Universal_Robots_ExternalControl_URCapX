@@ -1,3 +1,3 @@
 export function getSupportedLanguages() {
-    return ['en', 'da'];
+    return ['en', 'da', 'de'];
 }
