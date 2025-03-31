@@ -13,7 +13,7 @@
         "supportiveText": "Connect to ROS/ROS 2 driver and Universal Robots Client Library",
         "description": {
           "line1": "This URCap allows you to inject URScript code into a program from an external application upon request.",
-          "line2": "It is primarily meant for connecting the robot to the Universal ROS or ROS 2 drivers."
+          "line2": "It is primarily meant for connecting the robot to the Universal Robots ROS or ROS 2 driver."
         },
         "settings": {
           "header": "Settings",
