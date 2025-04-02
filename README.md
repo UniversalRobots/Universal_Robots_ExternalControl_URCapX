@@ -2,6 +2,14 @@
 
 This URCap allows you to inject script code to the robot, and is primarily meant for connecting the robot to the Universal ROS/ROS 2 driver and the Universal Robots Client Library.
 
+## Install on a robot
+
+To install the URCapX on a robot, you'll need to download the latest version from the [releases
+page](https://github.com/UniversalRobots/Universal_Robots_ExternalControl_URCapX/releases). Pick
+the `external-control-x.y.z.urcap` file and copy it to a USB stick. Plug that USB stick into the
+robot's teach pendant and install the URCapX as usual. Please see [the ROS robot setup
+guide](https://docs.universal-robots.com/Universal_Robots_ROS_Documentation/doc/ur_client_library/doc/setup/robot_setup.html)
+for more information.
 
 ## Build and Deploy Sample
 
