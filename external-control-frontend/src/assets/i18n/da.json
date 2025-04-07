@@ -37,6 +37,8 @@
   "presenter": {
     "port-input-description": "Indtast portnummer",
     "robotIP-input-description": "Indtast værtsnavn eller IP-adresse",
-    "update-button": "Opdater program"
+    "update-button": "Opdater program",
+    "update-label": "Opater program fra",
+    "cache-label": "Program gemt fra {{ip}}:{{port}}"
   }
 }

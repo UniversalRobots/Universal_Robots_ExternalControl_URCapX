@@ -37,6 +37,8 @@
   "presenter": {
     "port-input-description": "Enter port number",
     "robotIP-input-description": "Enter computer host name or IP address",
-    "update-button": "Update program"
+    "update-button": "Update program",
+    "update-label": "Update program from",
+    "cache-label": "Program cached from {{ip}}:{{port}}"
   }
 }

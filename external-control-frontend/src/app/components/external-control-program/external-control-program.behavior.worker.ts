@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 import {
     ApplicationContext,
+    AdvancedTranslatedProgramLabel,
     AdvancedProgramLabel,
     ProgramBehaviorAPI,
     InsertionContext,
@@ -16,11 +17,20 @@ import { ExternalControlProgramNode } from './external-control-program.node';
 import { URCAP_ID, VENDOR_ID } from 'src/generated/contribution-constants';
 import { ExternalControlApplicationNode } from '../external-control-application/external-control-application.node';
 
-
-const createProgramNodeLabel = async (node: ExternalControlProgramNode): Promise<AdvancedProgramLabel> => {
+const createProgramNodeLabel = async (node: ExternalControlProgramNode): Promise<AdvancedTranslatedProgramLabel> => {
     const api = new ProgramBehaviorAPI(self);
     const applicationNode = await api.applicationService.getApplicationNode('universal-robots-external-control-external-control-application') as ExternalControlApplicationNode;
-    return [{ type: 'primary', value: `Program cached from ${applicationNode.robotIP}:${applicationNode.port}`, },];
+    const programLabel: AdvancedTranslatedProgramLabel = [];
+
+    programLabel.push({
+        type: 'primary',
+        translationKey: 'presenter.cache-label',
+        interpolateParams: {
+            ip: `${applicationNode.robotIP}`,
+            port: `${applicationNode.port}`
+        }
+    });
+    return programLabel;
 };
 
 const createProgramNode = async (): Promise<ExternalControlProgramNode> => {

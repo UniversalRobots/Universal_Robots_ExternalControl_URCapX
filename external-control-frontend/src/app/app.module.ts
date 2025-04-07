@@ -13,7 +13,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 export const httpLoaderFactory = (http: HttpBackend) =>
     new MultiTranslateHttpLoader(http, [
         { prefix: PATH + '/assets/i18n/', suffix: '.json' },
-        { prefix: './ui/assets/i18n/', suffix: '.json' },
+        { prefix: './ui/assets/i18n/', suffix: '.json' }
     ]);
 
 @NgModule({
