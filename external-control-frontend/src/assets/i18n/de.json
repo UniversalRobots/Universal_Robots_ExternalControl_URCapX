@@ -36,6 +36,8 @@
   "presenter": {
     "port-input-description": "Geben Sie die Portnummer auf dem externen Computer für die Bereitstellung des URScript-Codes ein",
     "robotIP-input-description": "Geben Sie die IP-Adresse oder den Hostnamen des externen Computers ein",
-    "update-button": "URScript code aktualisieren"
+    "update-button": "URScript code aktualisieren",
+    "update-label": "URScript code aktualisieren von",
+    "cache-label": "URScript code gespeichert von {{ip}}:{{port}}"
   }
 }
