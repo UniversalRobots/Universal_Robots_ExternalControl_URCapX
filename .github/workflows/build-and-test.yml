@@ -27,7 +27,7 @@ jobs:
         working-directory: external-control-backend/tests
         run: pytest
 
-  build:
+  build-frontend-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -65,9 +65,9 @@ jobs:
         path: target/external-control-*.urcapx
         if-no-files-found: error
 
-  deploy:
+  upload-urcapx:
     runs-on: ubuntu-latest
-    needs: [backend-test, build]  # Only runs if both jobs succeed
+    needs: [backend-test, build-frontend-and-test]  # Only runs if both jobs succeed
 
     steps:
     - name: Download build artifacts

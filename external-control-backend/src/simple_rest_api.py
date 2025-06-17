@@ -4,12 +4,27 @@ from flask_cors import CORS
 import request_program
 import socket
 import time
+import logging
+import sys
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
 
 command = "request_program\n"
 
 # Create a simple rest api with Flask (https://flask.palletsprojects.com/en/2.0.x/)
 app = Flask(__name__)
 CORS(app)
+
+# Log startup message
+logger.info("Starting Flask application...")
+logger.info(f"Server hostname: {socket.gethostname()}")
+logger.info(f"Server IP: {socket.gethostbyname(socket.gethostname())}")
 
 # Simple in-memory cache: {(port, robotIP): (timestamp, program)}
 program_cache = {}
@@ -55,21 +70,30 @@ def store_in_cache(cache_key, now, json_str, valid):
 
 @app.route('/<int:port>/<robotIP>/', methods=["GET"])
 def read_params(port, robotIP):
+    logger.info(f"Received request for port {port} and robot IP {robotIP}")
     cache_key = (port, robotIP)
     now = time.time()
     cached_resp = get_cached_response(cache_key, now)
     if cached_resp:
+        logger.info(f"Returning cached response for port {port} and robot IP {robotIP}")
         return cached_resp
     status = None
     try:
+        logger.info(f"Connecting to robot at {robotIP}:{port}")
         con = request_program.RequestProgram(port, robotIP)
         program = con.send_command(command)
         valid = bool(program and program.strip())
         status = "ok"
+        logger.info(f"Successfully retrieved program from robot at {robotIP}:{port}")
     except Exception as e:
         program = ''
         valid = False
         status = str(e)
+        logger.error(f"Error connecting to robot at {robotIP}:{port}: {str(e)}")
     json_str = build_json_response(program, valid, status)
     store_in_cache(cache_key, now, json_str, valid)
     return flask.Response(json_str, mimetype='application/json')
+
+if __name__ == '__main__':
+    logger.info("Flask application is ready to serve requests")
+    app.run(host='0.0.0.0', port=5000)

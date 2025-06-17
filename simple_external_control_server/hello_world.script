@@ -1,8 +1,11 @@
+# HEADER_BEGIN
 
 def test_func():
   textmsg("test function")
   popup("Hello external control", blocking = True)
 end
+
+# HEADER_END
 
 # NODE_CONTROL_LOOP_BEGINS
 

@@ -3,7 +3,7 @@ metadata:
   urcapID: external-control
   vendorName: Universal Robots
   urcapName: "external-control"
-  version: 0.1.0
+  version: 1.0.0
   contactInfo: Energivej 51, 5260 Odense S, Denmark
   description: Enable External Control for e.g. the ROS2 driver
   copyright: Copyright (c) 2024 Universal Robots. All rights reserved.

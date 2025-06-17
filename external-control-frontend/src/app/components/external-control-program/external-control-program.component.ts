@@ -47,7 +47,7 @@ export class ExternalControlProgramComponent implements OnChanges,
         this.cd.detectChanges();
       });
     }
-    if (changes?.presenterAPI.isFirstChange() && this.presenterAPI) {
+    if (changes?.presenterAPI?.firstChange && this.presenterAPI) {
       const applicationNode =
           await this.presenterAPI.applicationService.getApplicationNode(
               'universal-robots-external-control-external-control-application') as
