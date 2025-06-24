@@ -56,24 +56,28 @@ class RequestProgram(object):
         try:
             # Create a socket connection with the robot IP and port number defined above
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.settimeout(timeout)
+            s.settimeout(0.1)
             s.connect((self.robotIP, self.port))
             s.sendall(command.encode('us-ascii'))
             # Receive script code
             raw_data = b""
+            begin = time.time()
             while True:
                 try:
-                    data = s.recv(1024)
-                    if not data:
-                        break
+                    data = s.recv(5)
                     raw_data += data
                 except socket.timeout:
-                    s.close()
-                    raise Exception(f"Connection timeout")
+                    print("No data received from the server")
+                    if raw_data != b"":
+                        print(raw_data)
+                        break
+                    elif time.time() - begin > timeout:
+                        s.close()
+                        raise Exception(f"Connection timeout")
             program = raw_data.decode("us-ascii")
             s.close()
             if not bool(program and program.strip()):
                 raise Exception(f"Did not receive any script lines")
             return program
         except Exception as e:
-            raise Exception(f"Connectivity problem to with {self.robotIP}:{self.port}: {e}")
+            raise Exception(f"Connectivity problem with {self.robotIP}:{self.port}: {e}")
