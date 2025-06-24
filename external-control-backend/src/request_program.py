@@ -66,11 +66,12 @@ class RequestProgram(object):
             while True:
                 try:
                     data = s.recv(5)
+                    # if not data:
+                    #     break  # Connection closed by the server
                     raw_data += data
                 except socket.timeout:
-                    print("No data received from the server")
                     if raw_data != b"":
-                        print(raw_data)
+                        print("Done receiving data")
                         break
                     elif time.time() - begin > timeout:
                         s.close()
