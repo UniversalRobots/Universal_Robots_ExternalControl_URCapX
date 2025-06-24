@@ -52,7 +52,7 @@ def test_send_command_no_data(monkeypatch):
     with pytest.raises(Exception) as exc:
         rp.send_command('request_program\n')
     assert (
-        'Connectivity problem to with 127.0.0.1:1234: Did not receive any script lines' in str(exc.value)
+        'Connectivity problem with 127.0.0.1:1234: Did not receive any script lines' in str(exc.value)
     )
     assert dummy.closed
 
@@ -62,7 +62,7 @@ def test_send_command_timeout(monkeypatch):
     rp = RequestProgram(1234, '127.0.0.1')
     with pytest.raises(Exception) as exc:
         rp.send_command('request_program\n')
-    assert 'Connectivity problem to with 127.0.0.1:1234: Connection timeout' in str(exc.value)
+    assert 'Connectivity problem with 127.0.0.1:1234: Connection timeout' in str(exc.value)
     assert dummy.closed
 
 def test_send_command_connect_error(monkeypatch):

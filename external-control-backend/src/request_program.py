@@ -1,4 +1,5 @@
 import socket
+import time
 
 class RequestProgram(object):
     def __init__(self, port, robotIP):
