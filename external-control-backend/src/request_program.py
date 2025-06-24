@@ -65,7 +65,7 @@ class RequestProgram(object):
             begin = time.time()
             while True:
                 try:
-                    data = s.recv(5)
+                    data = s.recv(1024)
                     if not data:
                         break  # Connection closed by the server
                     raw_data += data
