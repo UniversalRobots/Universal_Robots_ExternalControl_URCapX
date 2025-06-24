@@ -66,8 +66,8 @@ class RequestProgram(object):
             while True:
                 try:
                     data = s.recv(5)
-                    # if not data:
-                    #     break  # Connection closed by the server
+                    if not data:
+                        break  # Connection closed by the server
                     raw_data += data
                 except socket.timeout:
                     if raw_data != b"":
