@@ -1,4 +1,5 @@
 import socket
+import time
 
 class RequestProgram(object):
     def __init__(self, port, robotIP):
@@ -49,33 +50,36 @@ class RequestProgram(object):
             str: The program code received from the robot.
 
         Raises:
-            Exception: If the connection to the remote PC could not be established.
+            Exception: If the connection to the remote PC could not be established or no data is received.
         """
-
         program = ""
         timeout = 5
-        # Create a socket connection with the robot IP and port number defined above
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((self.robotIP, self.port))
-        s.sendall(command.encode('us-ascii'))
-        s.settimeout(timeout)  # Set timeout for receiving data
-        
-        #Receive script code
-        raw_data = b""
-        while True:
-            try:
-                data = s.recv(1024)
-                if not data:
-                    break
-                
-                raw_data += data
-            
-            except socket.timeout:
-                break
-
-        program = raw_data.decode("us-ascii")
-
-        # Close the connection
-        s.close()
-
-        return program
+        try:
+            # Create a socket connection with the robot IP and port number defined above
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(0.1)
+            s.connect((self.robotIP, self.port))
+            s.sendall(command.encode('us-ascii'))
+            # Receive script code
+            raw_data = b""
+            begin = time.time()
+            while True:
+                try:
+                    data = s.recv(1024)
+                    if not data:
+                        break  # Connection closed by the server
+                    raw_data += data
+                except socket.timeout:
+                    if raw_data != b"":
+                        print("Done receiving data")
+                        break
+                    elif time.time() - begin > timeout:
+                        s.close()
+                        raise Exception(f"Connection timeout")
+            program = raw_data.decode("us-ascii")
+            s.close()
+            if not bool(program and program.strip()):
+                raise Exception(f"Did not receive any script lines")
+            return program
+        except Exception as e:
+            raise Exception(f"Connectivity problem with {self.robotIP}:{self.port}: {e}")
