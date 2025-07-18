@@ -2,6 +2,9 @@
 
 This URCap allows you to inject script code to the robot, and is primarily meant for connecting the robot to the Universal ROS/ROS 2 driver and the Universal Robots Client Library.
 
+> [!IMPORTANT]  
+> This URCapX requires PolyScope 10.8.0 or higher. If you are running PolyScope 10.7.0 you can either update the robot (recommended) or use this URCapX in [version 0.1.0](https://github.com/UniversalRobots/Universal_Robots_ExternalControl_URCapX/releases/tag/0.1.0).
+
 ## Install on a robot
 
 To install the URCapX on a robot, you'll need to download the latest version from the [releases
