@@ -12,6 +12,7 @@ import {ExternalControlProgramNode} from './external-control-program.node';
   templateUrl: './external-control-program.component.html',
   styleUrls: ['./external-control-program.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 
 export class ExternalControlProgramComponent implements OnChanges,

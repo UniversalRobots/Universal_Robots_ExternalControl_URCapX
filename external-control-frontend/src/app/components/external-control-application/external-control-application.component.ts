@@ -19,6 +19,7 @@ import { getSupportedLanguages } from 'src/app/components/supported-languages';
     styleUrls: ['./external-control-application.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    standalone: false,
 })
 export class ExternalControlApplicationComponent implements ApplicationPresenter, OnChanges {
 
@@ -67,8 +68,8 @@ export class ExternalControlApplicationComponent implements ApplicationPresenter
             }
 
             const supportedLanguages = getSupportedLanguages();
-            const language = supportedLanguages.includes(changes?.robotSettings?.currentValue?.language) 
-                ? changes?.robotSettings?.currentValue?.language 
+            const language = supportedLanguages.includes(changes?.robotSettings?.currentValue?.language)
+                ? changes?.robotSettings?.currentValue?.language
                 : 'en';
 
             this.translateService
