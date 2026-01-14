@@ -1,0 +1,521 @@
+{
+  "$id": "https://www.universal-robots.com/urcap/manifest.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "URCap Manifest Specification",
+  "properties": {
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "artifacts": {
+      "$ref": "#/$defs/artifacts"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The manifest file is a YAML file defining a multi-artifacts based URCap application.",
+  "required": [
+    "metadata"
+  ],
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "vendorID": {
+          "type": "string",
+          "description": "A unique identifier for the vendor that developed the URCap application. This is shared among all applications developed by the vendor.",
+          "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$",
+          "minLength": 2,
+          "maxLength": 50,
+          "example": "universal-robots"
+        },
+        "urcapID": {
+          "type": "string",
+          "description": "A unique identifier for the URCap application developed by the vendor. This must be unique for each application developed by a vendor.",
+          "pattern": "^[a-z][a-z0-9_-]*[a-z0-9]$",
+          "minLength": 2,
+          "maxLength": 50,
+          "example": "dockerdaemon"
+        },
+        "version": {
+          "type": "string",
+          "description": "Given a version number MAJOR.MINOR.PATCH, following the specification at https://semver.org/",
+          "example": "1.0.0",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        },
+        "vendorName": {
+          "type": "string",
+          "description": "The name of the vendor that developed the URCap application displayed on the user interface.",
+          "example": "Universal Robots A/S"
+        },
+        "urcapName": {
+          "type": "string",
+          "description": "The name of the URCap application that will be displayed on the user interface.",
+          "example": "Demo URCap"
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the URCap application functionality.",
+          "example": "This is a sample URCap that provides control of the robot gripper"
+        },
+        "copyright": {
+          "type": "string",
+          "description": "The copyright information for the URCap application.",
+          "example": "Copyright (C) 2009-2023 Universal Robots. All Rights Reserved"
+        },
+        "licenseType": {
+          "type": "string",
+          "description": "The type of license for the URCap application.",
+          "example": [
+            "open source",
+            "freeware",
+            "proprietary",
+            "shareware"
+          ]
+        },
+        "license": {
+          "type": "string",
+          "description": "The type of license for the URCap application.",
+          "example": "Sample license"
+        },
+        "contactInfo": {
+          "type": "string",
+          "description": "Contact information for the vendor/company that developed the URCap application.",
+          "example": "Energivej 25, 5260 Odense, Denmark"
+        }
+      },
+      "description": "Meta information of an urcap",
+      "required": [
+        "urcapID",
+        "vendorID",
+        "urcapName",
+        "vendorName",
+        "version"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "properties": {
+        "containers": {
+          "type": "array",
+          "description": "List of Container artifacts for the URCap.",
+          "items": {
+            "$ref": "#/$defs/container"
+          },
+          "x-go-name": "Containers"
+        },
+        "webArchives": {
+          "description": "List of web archives artifact for the URCap.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/webArchive"
+          },
+          "x-go-name": "WebArchives"
+        },
+        "rosTypes": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique name.",
+              "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$",
+              "minLength": 2,
+              "maxLength": 50,
+              "example": "my_package1_id"
+            },
+            "folder": {
+              "type": "string",
+              "const": "rostypes"
+            }
+          }
+        }
+      },
+      "description": "Contains various types of artifacts (e.g., containers, OSGi bundles, and web archives) that constitute a URCap.",
+      "default": {},
+      "additionalProperties": false
+    },
+    "container": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Name of the container artifact.",
+          "example": "daemon-cpp",
+          "pattern": "^[a-z][a-z0-9_-]*[a-z0-9]$",
+          "x-order": 0,
+          "x-go-name": "Name"
+        },
+        "image": {
+          "type": "string",
+          "description": "Path to the image in a URCap archive file from top directory.",
+          "example": "daemon/daemon-cpp.tar",
+          "x-order": 1,
+          "x-go-name": "Image"
+        },
+        "startup": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "automatic",
+            "manual"
+          ],
+          "description": "autostart of urcapx ENUM[\"auto\", \"automatic\", \"manual\"]",
+          "x-go-name": "Startup",
+          "default": "auto",
+          "x-order": 2,
+          "x-nullable": false
+        },
+        "exposePorts": {
+          "type": "array",
+          "description": "An array of container ports to be exposed.",
+          "items": {
+            "$ref": "#/$defs/containerExposePort"
+          },
+          "x-order": 3,
+          "x-go-name": "ExposePorts"
+        },
+        "environment": {
+          "type": "array",
+          "description": "Adds list of environment variables inside the container.",
+          "items": {
+            "$ref": "#/$defs/containerEnvironmentVariable"
+          },
+          "x-order": 4,
+          "x-go-name": "Environment"
+        },
+        "mounts": {
+          "type": "array",
+          "description": "An array of volume mounts to be mounted inside the container.",
+          "items": {
+            "$ref": "#/$defs/containerMount"
+          },
+          "x-order": 5,
+          "x-go-name": "Mounts"
+        },
+        "devices": {
+          "type": "array",
+          "description": "An array of devices to be mounted inside the container.",
+          "items": {
+            "$ref": "#/$defs/containerDevice"
+          }
+        },
+        "networks": {
+          "type": "array",
+          "description": "Holds a list of containerNetwork entries",
+          "items": {
+            "$ref": "#/$defs/containerNetwork"
+          }
+        },
+        "ingress": {
+          "type": "array",
+          "description": "Configure ingress path routing, e.g., for REST APIs.",
+          "items": {
+            "$ref": "#/$defs/containerIngress"
+          },
+          "x-order": 9,
+          "x-go-name": "Ingress"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "service": {
+                "enum": [
+                  "urcontrol-primary",
+                  "urcontrol-secondary",
+                  "urcontrol-real-time",
+                  "urcontrol-rtde",
+                  "urcontrol-interpreter",
+                  "urcontrol-primary-read-only",
+                  "urcontrol-secondary-read-only",
+                  "urcontrol-real-time-read-only",
+                  "modbus-tcp",
+                  "profinet",
+                  "ethernet-ip",
+                  "ros2"
+                ]
+              }
+            },
+            "required": [
+              "service"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "target": {
+          "type": "string",
+          "description": "Hostname or ip of remote computing target on which to run the container",
+          "example": "10.54.4.5",
+          "x-go-name": "Target"
+        },
+        "additionalProperties": true
+      },
+      "description": "Container artifact model",
+      "required": [
+        "id",
+        "image"
+      ],
+      "patternProperties": {
+        "^x-": {}
+      },
+      "additionalProperties": false
+    },
+    "containerExposePort": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "This is logical port name on docker host. Port name is resolved to one of the available port number on the docker host and queried using rest api. The logical_port on docker host is mapped to containerPort on container.",
+          "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$",
+          "minLength": 2,
+          "maxLength": 50,
+          "example": "http",
+          "x-go-name": "Name"
+        },
+        "containerPort": {
+          "type": "integer",
+          "description": "This is the port number on the container. The container port number is mapped to port name on container host.",
+          "format": "uint16",
+          "minimum": 1,
+          "maximum": 61000,
+          "example": 8080,
+          "x-go-name": "ContainerPort"
+        },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "tcp",
+            "udp"
+          ],
+          "default": "tcp",
+          "description": "Protocol used for mapping. Type of port mapping between the container host and container either tcp/udp.",
+          "x-go-name": "Protocol"
+        },
+        "hostPort": {
+          "type": "integer",
+          "description": "This is the port number on the host used when mapping container ports to host ports.",
+          "format": "uint16",
+          "minimum": 1,
+          "maximum": 61000,
+          "example": 30001,
+          "x-go-name": "HostPort"
+        },
+        "externallyAvailable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Port available on ethernet. Indicates whether the host port is available on the physical network.",
+          "x-go-name": "ExternallyAvailable"
+        }
+      },
+      "description": "ContainerPort is the port configuration for a container. These details are used to establish the connection between the docker host and container.",
+      "required": [
+        "id",
+        "containerPort"
+      ],
+      "additionalProperties": false
+    },
+    "containerMount": {
+      "type": "object",
+      "properties": {
+        "mount": {
+          "type": "string",
+          "pattern": "^[a-zA-Z_]+:/[^\\0]+$",
+          "description": "The mount path in the container.",
+          "example": "persistent:/path/in/container",
+          "x-go-name": "Mount"
+        },
+        "access": {
+          "type": "string",
+          "enum": [
+            "rw",
+            "r"
+          ],
+          "description": "Mount the filesystem as either read-write (rw) or read-only (r).",
+          "default": "r",
+          "x-go-name": "Type"
+        }
+      },
+      "description": "Mount storage into container.",
+      "required": [
+        "mount",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "containerEnvironmentVariable": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The container environment variable name. Convention is to use capital letters with underscore delimiters.",
+          "pattern": "^[a-zA-Z0-9_]+$",
+          "example": "LOG_LEVEL"
+        },
+        "value": {
+          "type": "string",
+          "description": "The container environment variable value. Any configuration information required at runtime by URCap container.",
+          "pattern": "^.*$",
+          "example": "info"
+        }
+      },
+      "description": "Add environment variables to the container.",
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "containerIngress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Logical name of the ingress rule.",
+          "example": "rest-api",
+          "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$"
+        },
+        "containerPort": {
+          "type": "integer",
+          "description": "The container port number of http server. The port number on the container for the HTTP server.",
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 61000,
+          "example": 80
+        },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "http",
+            "websocket"
+          ],
+          "description": "The ingress protocol. Add this setting to select between http and websocket - the later allowing connection upgrades.",
+          "default": "http"
+        },
+        "proxyUrl": {
+          "type": "string",
+          "description": "The proxy URL forwarded to container. Select between short URLs and long URLs arriving at the container backend. When short URLs are selected the matching prefix is removed from the URL before forwarding.",
+          "pattern": "^/([a-zA-Z0-9/_-]*)$",
+          "default": "original",
+          "example": "/shorturl"
+        },
+        "devUrl": {
+          "type": "string",
+          "description": "Forward requests to this URL instead of serving them from the robot. Used for debugging and realtime development of URCaps.",
+          "example": "http://10.1.2.3/mysite"
+        },
+        "externallyAvailable": {
+          "$ref": "#/$defs/externallyAvailable"
+        }
+      },
+      "description": "Automatically configure ingress path routing, e.g., for REST APIs.",
+      "required": [
+        "id",
+        "containerPort"
+      ],
+      "additionalProperties": false
+    },
+    "containerDevice": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ttyTool",
+            "serial",
+            "video",
+            "network",
+            "cobotarm"
+          ],
+          "description": "types of devices that the container can use.",
+          "x-go-name": "Type"
+        }
+      },
+      "description": "physical USB devices that should be accessible from the container.",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "containerNetwork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Interface name inside container",
+          "example": "eth1",
+          "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$",
+          "x-go-name": "ID"
+        },
+        "type": {
+          "type": "string",
+          "description": "Network type",
+          "example": "macvlan",
+          "enum": [
+            "eth",
+            "macvlan",
+            "vlan"
+          ],
+          "x-go-name": "Type"
+        },
+        "description": {
+          "type": "string",
+          "description": "Describe the purpose of this network",
+          "example": "Gripper Network",
+          "x-go-name": "Description"
+        }
+      },
+      "description": "Defines a containerNetwork",
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "webArchive": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique name of the web archive.",
+          "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$",
+          "minLength": 2,
+          "maxLength": 50,
+          "example": "mywebarchive"
+        },
+        "folder": {
+          "type": "string",
+          "description": "The name of the web archive folder.",
+          "pattern": "^[a-zA-Z0-9._-]+$",
+          "minLength": 2,
+          "maxLength": 50,
+          "example": "mywebarchive"
+        },
+        "devUrl": {
+          "type": "string",
+          "description": "Forward requests to this URL instead of serving them from the robot. Used for debugging and realtime development of URCaps.",
+          "example": "http://10.1.2.3/mysite/"
+        },
+        "externallyAvailable": {
+          "$ref": "#/$defs/externallyAvailable"
+        }
+      },
+      "description": "An web archive artifact for the URCap application.",
+      "required": [
+        "id",
+        "folder"
+      ],
+      "additionalProperties": false
+    },
+    "externallyAvailable": {
+      "description": "Option to configure if the ingress should be reachable from outside of the robot.",
+      "type": "string",
+      "enum": [
+        "robot",
+        "public"
+      ],
+      "default": "robot"
+    }
+  }
+}

@@ -23,9 +23,9 @@
   "copy-license": "ncp 'LICENSE' 'dist/LICENSE'",
   "clean-dist": "rimraf dist",
   "clean-target": "rimraf target",
-  "install-urcap": "install-urcap 'target/external-control*.urcapx' '../manifest-spec-19.6.14.json'",
+  "install-urcap": "install-urcap 'target/external-control*.urcapx' 'manifest-spec-19.6.14.json'",
   "delete-urcap": "delete-urcap universal-robots external-control",
-  "validate-manifest": "validate-manifest 'manifest.yaml' '../manifest-spec-19.6.14.json'"
+  "validate-manifest": "validate-manifest 'manifest.yaml' 'manifest-spec-19.6.14.json'"
 },
   "private": true,
   "devDependencies": {
