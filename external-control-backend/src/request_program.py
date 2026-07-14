@@ -53,13 +53,18 @@ class RequestProgram(object):
             Exception: If the connection to the remote PC could not be established or no data is received.
         """
         program = ""
-        timeout = 5
+        connection_timeout = 5
+        receive_timeout = 1.0
         try:
             # Create a socket connection with the robot IP and port number defined above
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.settimeout(0.1)
-            s.connect((self.robotIP, self.port))
+            s.settimeout(connection_timeout)
+            try:
+                s.connect((self.robotIP, self.port))
+            except socket.timeout:
+                raise Exception(f"Connection timeout")
             s.sendall(command.encode('us-ascii'))
+            s.settimeout(receive_timeout)
             # Receive script code
             raw_data = b""
             begin = time.time()
@@ -73,9 +78,6 @@ class RequestProgram(object):
                     if raw_data != b"":
                         print("Done receiving data")
                         break
-                    elif time.time() - begin > timeout:
-                        s.close()
-                        raise Exception(f"Connection timeout")
             program = raw_data.decode("us-ascii")
             s.close()
             if not bool(program and program.strip()):
