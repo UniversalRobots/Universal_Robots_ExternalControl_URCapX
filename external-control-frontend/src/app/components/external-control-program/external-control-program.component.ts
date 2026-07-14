@@ -66,6 +66,19 @@ export class ExternalControlProgramComponent implements OnChanges,
   async saveNode() {
     this.cd.detectChanges();
     await this.presenterAPI.programNodeService.updateNode(this.contributedNode);
+
+    const validationResponse =
+        await this.presenterAPI.validationService.getValidationResponse();
+    if (!validationResponse.isValid) {
+      const title = this.translateService.instant('presenter.update-error-title');
+      const filler = this.translateService.instant(
+          'presenter.update-error-message',
+          {remote_ip: this.ipDisplay(), port: this.portDisplay()});
+      const details = validationResponse.errorMessageKey ?? '';
+      const message = details ? `${filler}<br/><br/>${details}` : filler;
+      await this.presenterAPI.dialogService.openConfirmDialog(
+          title, message, 'error');
+    }
   }
 
   async getPortDisplay() {

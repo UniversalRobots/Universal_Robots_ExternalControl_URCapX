@@ -78,6 +78,7 @@ def read_params(port, robotIP):
         logger.info(f"Returning cached response for port {port} and robot IP {robotIP}")
         return cached_resp
     status = None
+    http_status = 200
     try:
         logger.info(f"Connecting to robot at {robotIP}:{port}")
         con = request_program.RequestProgram(port, robotIP)
@@ -85,14 +86,36 @@ def read_params(port, robotIP):
         valid = bool(program and program.strip())
         status = "ok"
         logger.info(f"Successfully retrieved program from robot at {robotIP}:{port}")
+    except socket.timeout:
+        program = ''
+        valid = False
+        status = "Connection timed out"
+        http_status = 504
+        logger.error(f"Connection to robot at {robotIP}:{port} timed out")
+    except OSError as e:
+        program = ''
+        valid = False
+        status = str(e)
+        if e.errno == 111:  # Connection refused
+            http_status = 503
+        elif e.errno == 110:  # Connection timed out
+            http_status = 504
+        elif e.errno == 101:  # Network is unreachable
+            http_status = 503
+        elif e.errno == 113:  # No route to host
+            http_status = 503
+        else:
+            http_status = 500
+        logger.error(f"Error connecting to robot at {robotIP}:{port}: {str(e)}")
     except Exception as e:
         program = ''
         valid = False
         status = str(e)
-        logger.error(f"Error connecting to robot at {robotIP}:{port}: {str(e)}")
+        http_status = 500
+        logger.error(f"Unexpected error while retrieving program from robot at {robotIP}:{port}: {str(e)}")
     json_str = build_json_response(program, valid, status)
     store_in_cache(cache_key, now, json_str, valid)
-    return flask.Response(json_str, mimetype='application/json')
+    return flask.Response(json_str, status=http_status, mimetype='application/json')
 
 if __name__ == '__main__':
     logger.info("Flask application is ready to serve requests")
