@@ -55,7 +55,8 @@ export const fetchBackendJson = async (port: number, robotIP: string, api: Progr
     const response = await fetch(backendUrl);
     console.log("response", response);
     if (!response.ok) {
-        throw new Error(`Backend error: ${response.status}`);
+        const errorMessage = await response.clone().json().catch(() => ({})).then(json => json.status || response.statusText);
+        throw new Error(`HTTP ${response.status} ${response.statusText}\n\nBackend error: ${errorMessage}`);
     }
     return await response.json();
 };
@@ -89,9 +90,9 @@ const generateScriptCodeAfter = (node: ExternalControlProgramNode): OptionalProm
 const generatePreambleScriptCode = async (node: ExternalControlProgramNode, ScriptContext: ScriptContext): Promise<ScriptBuilder> => {
     console.log('generatePreambleScriptCode');
     const api = new ProgramBehaviorAPI(self);
-    
+
     const builder = new ScriptBuilder();
-    
+
     if (await isThisNodeTheFirstUrcapNodeInTree(node, api)) {
         // Fetch the preamble from the backend
         const applicationNode = await api.applicationService.getApplicationNode('universal-robots-external-control-external-control-application') as ExternalControlApplicationNode;
@@ -130,17 +131,17 @@ const allowedInsert = (insertionContext: InsertionContext): OptionalPromise<bool
 
 const nodeUpgrade = (loadedNode: ProgramNode): ProgramNode => {
     const upgradedNode = { ...loadedNode };
-    
+
     // Ensure parameters object exists
     if (!upgradedNode.parameters) {
         upgradedNode.parameters = {};
     }
-    
+
     // Add nodeHash if missing
     if (!upgradedNode.parameters.nodeHash) {
         upgradedNode.parameters.nodeHash = uuidv4();
     }
-    
+
     return upgradedNode;
 };
 

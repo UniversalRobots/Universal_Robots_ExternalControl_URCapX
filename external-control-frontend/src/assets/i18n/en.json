@@ -39,6 +39,8 @@
     "robotIP-input-description": "Enter computer host name or IP address",
     "update-button": "Update program",
     "update-label": "Update program from",
-    "cache-label": "Program cached from {{ip}}:{{port}}"
+    "cache-label": "Program cached from {{ip}}:{{port}}",
+    "update-error-title": "Failed to update program",
+    "update-error-message": "Failed to fetch the script code from remote {{remote_ip}}:{{port}}. Please see the error below for details"
   }
 }

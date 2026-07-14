@@ -39,6 +39,8 @@
     "robotIP-input-description": "Indtast værtsnavn eller IP-adresse",
     "update-button": "Opdater program",
     "update-label": "Opater program fra",
-    "cache-label": "Program gemt fra {{ip}}:{{port}}"
+    "cache-label": "Program gemt fra {{ip}}:{{port}}",
+    "update-error-title": "Opdatering af program mislykkedes",
+    "update-error-message": "Kunne ikke hente scriptkoden fra remote {{remote_ip}}:{{port}}. Se fejlen nedenfor for detaljer."
   }
 }
