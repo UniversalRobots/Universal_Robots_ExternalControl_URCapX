@@ -14,6 +14,27 @@ robot's teach pendant and install the URCapX as usual. Please see [the ROS robot
 guide](https://docs.universal-robots.com/Universal_Robots_ROS_Documentation/doc/ur_client_library/doc/setup/robot_setup.html)
 for more information.
 
+### Version compatibility
+
+Not every PolyScope X version is compatible with every URCapX version. Please see the table below
+for compatibility information.
+
+| URCap Version   | 0.1.0 | 1.0.0 | 1.1.0 |
+|-----------------|-------|-------|-------|
+| PolyScope 10.7  | ✅    | ✗     | ✗     |
+| PolyScope 10.8  | ✅    | ✅    | ✗     |
+| PolyScope 10.9  | ?     | ✅    | ✗     |
+| PolyScope 10.10 | ?     | ✅    | ✗     |
+| PolyScope 10.11 | ?     | ✅    | ✅    |
+| PolyScope 10.12 | ?     | ✅    | ✅    |
+| PolyScope 10.13 | ?     | ✅    | ✅    |
+| PolyScope 10.14 | ?     | ✅*   | ✅*   |
+
+> [!NOTE]
+> \* This combination works, but the program might show up as valid, though program code could
+> not be fetched from the remote. The program will not do anything in that case.
+
+
 ## Build and Deploy Sample
 
 In order to build and deploy this sample, use the commands below. A rebuild of the project is required to see any changes made to the source code.  If you are deploying the URCap to URSim, ensure that you have started the simulator.
