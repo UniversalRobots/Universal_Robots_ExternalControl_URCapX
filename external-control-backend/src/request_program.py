@@ -55,6 +55,7 @@ class RequestProgram(object):
         program = ""
         connection_timeout = 5
         receive_timeout = 1.0
+        receive_timeout_overall = 5
         try:
             # Create a socket connection with the robot IP and port number defined above
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -78,6 +79,9 @@ class RequestProgram(object):
                     if raw_data != b"":
                         print("Done receiving data")
                         break
+                    elif time.time() - begin > receive_timeout_overall:
+                        s.close()
+                        raise socket.timeout(f"Timeout while receiving data")
             program = raw_data.decode("us-ascii")
             s.close()
             if not bool(program and program.strip()):
