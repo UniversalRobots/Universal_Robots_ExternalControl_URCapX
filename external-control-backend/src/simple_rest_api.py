@@ -68,7 +68,7 @@ def store_in_cache(cache_key, now, json_str, valid):
     if valid:
         program_cache[cache_key] = (now, json_str)
 
-@app.route('/<int:port>/<robotIP>/', methods=["GET"])
+@app.route('/<int:port>/<robotIP>/', methods=["GET"], strict_slashes=False )
 def read_params(port, robotIP):
     logger.info(f"Received request for port {port} and robot IP {robotIP}")
     cache_key = (port, robotIP)
