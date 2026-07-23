@@ -38,6 +38,8 @@
     "robotIP-input-description": "Geben Sie die IP-Adresse oder den Hostnamen des externen Computers ein",
     "update-button": "URScript code aktualisieren",
     "update-label": "URScript code aktualisieren von",
-    "cache-label": "URScript code gespeichert von {{ip}}:{{port}}"
+    "cache-label": "URScript code gespeichert von {{ip}}:{{port}}",
+    "update-error-title": "Programmaktualisierung fehlgeschlagen",
+    "update-error-message": "Fehler beim Abrufen des Skript-Codes von Remote {{remote_ip}}:{{port}}. Weitere Informationen finden Sie im untenstehenden Fehler."
   }
 }
