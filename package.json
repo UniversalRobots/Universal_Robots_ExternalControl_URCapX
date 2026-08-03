@@ -29,7 +29,7 @@
 },
   "private": true,
   "devDependencies": {
-  "@universal-robots/urcap-utils": "1.6.4",
+  "@universal-robots/urcap-utils": "2.2.5",
   "ncp": "2.0.0",
   "rimraf": "5.0.7"
   }
