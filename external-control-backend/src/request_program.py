@@ -79,7 +79,9 @@ class RequestProgram(object):
                     break
                 elif time.time() - begin > receive_timeout_overall:
                     s.close()
-                    raise socket.timeout(f"Timeout while receiving data from {self.robotIP}:{self.port}")
+                    raise TimeoutError(
+                        f"Could not receive data from {self.robotIP}:{self.port} in {receive_timeout_overall} seconds",
+                    )
         program = raw_data.decode("us-ascii")
         s.close()
         if not bool(program and program.strip()):

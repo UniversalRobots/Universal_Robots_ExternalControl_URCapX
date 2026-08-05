@@ -86,18 +86,23 @@ def read_params(port, robotIP):
         valid = bool(program and program.strip())
         status = "ok"
         logger.info(f"Successfully retrieved program from robot at {robotIP}:{port}")
-    except socket.timeout:
+    except socket.timeout as e:
         program = ''
         valid = False
-        status = "Connection timed out"
-        http_status = 504
-        logger.error(f"Connection to robot at {robotIP}:{port} timed out")
+        status = f"Connection to robot at {robotIP}:{port} timed out"
+        http_status = 500
+        logger.error(status)
     except OSError as e:
         program = ''
         valid = False
         status = str(e)
         if e.errno == 111:  # Connection refused
             http_status = 503
+            # status should be "Connection refused"
+            status += (". Ensure the remote PC is reachable, the external script provider "
+                       "is running and the port is open. Make sure, there "
+                       "is no firewall blocking the connection. Double-check the IP address and "
+                       "port number.")
         elif e.errno == 110:  # Connection timed out
             http_status = 504
         elif e.errno == 101:  # Network is unreachable
