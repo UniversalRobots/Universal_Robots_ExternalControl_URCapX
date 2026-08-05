@@ -56,7 +56,7 @@ export const fetchBackendJson = async (port: number, robotIP: string, api: Progr
     console.log("response", response);
     if (!response.ok) {
         const errorMessage = await response.clone().json().catch(() => ({})).then(json => json.status || response.statusText);
-        throw new Error(`HTTP ${response.status} ${response.statusText}\n\nBackend error: ${errorMessage}`);
+        throw new Error(`HTTP ${response.status} ${response.statusText}<br/></br>Backend error: ${errorMessage}`);
     }
     return await response.json();
 };
