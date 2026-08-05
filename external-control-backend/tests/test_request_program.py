@@ -62,7 +62,7 @@ def test_send_command_timeout(monkeypatch):
     rp = RequestProgram(1234, '127.0.0.1')
     with pytest.raises(Exception) as exc:
         rp.send_command('request_program\n')
-    assert 'Timeout while receiving data from 127.0.0.1:1234' in str(exc.value)
+    assert 'Could not receive data from 127.0.0.1:1234 in 5 seconds' in str(exc.value)
     assert dummy.closed
 
 def test_send_command_connect_error(monkeypatch):

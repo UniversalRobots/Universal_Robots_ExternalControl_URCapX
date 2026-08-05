@@ -90,7 +90,7 @@ def read_params(port, robotIP):
         program = ''
         valid = False
         status = f"Connection to robot at {robotIP}:{port} timed out"
-        http_status = 500
+        http_status = 504
         logger.error(status)
     except OSError as e:
         program = ''
