@@ -22,7 +22,7 @@
     "@angular/elements": "21.0.8",
     "@angular/platform-browser": "21.0.8",
     "@angular/platform-browser-dynamic": "21.0.8",
-    "@angular/router": "21.0.8",
+    "@angular/router": "21.2.25",
     "@ngx-translate/core": "17.0.0",
     "@universal-robots/ui-angular-components": "22.14.151",
     "ngx-translate-multi-http-loader": "20.0.0",
