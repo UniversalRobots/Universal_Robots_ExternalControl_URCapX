@@ -14,15 +14,16 @@
   "private": true,
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@angular/animations": "21.0.8",
+    "@angular/animations": "21.2.25",
     "@angular/cdk": "21.0.6",
-    "@angular/common": "21.0.8",
-    "@angular/compiler": "21.0.8",
-    "@angular/core": "21.0.8",
-    "@angular/elements": "21.0.8",
-    "@angular/platform-browser": "21.0.8",
-    "@angular/platform-browser-dynamic": "21.0.8",
-    "@angular/router": "21.0.8",
+    "@angular/common": "21.2.25",
+    "@angular/compiler": "21.2.25",
+    "@angular/core": "21.2.25",
+    "@angular/elements": "21.2.25",
+    "@angular/forms": "21.2.25",
+    "@angular/platform-browser": "21.2.25",
+    "@angular/platform-browser-dynamic": "21.2.25",
+    "@angular/router": "21.2.25",
     "@ngx-translate/core": "17.0.0",
     "@universal-robots/ui-angular-components": "22.14.151",
     "ngx-translate-multi-http-loader": "20.0.0",
@@ -30,15 +31,15 @@
     "zone.js": "0.16.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "21.0.5",
+    "@angular-devkit/build-angular": "21.2.25",
     "@angular-eslint/builder": "~21.0.0",
     "@angular-eslint/eslint-plugin": "~21.0.0",
     "@angular-eslint/eslint-plugin-template": "~21.0.0",
     "@angular-eslint/schematics": "~21.0.0",
     "@angular-eslint/template-parser": "~21.0.0",
-    "@angular/cli": "21.0.5",
-    "@angular/compiler-cli": "21.0.8",
-    "@angular/language-service": "21.0.8",
+    "@angular/cli": "21.2.25",
+    "@angular/compiler-cli": "21.2.25",
+    "@angular/language-service": "21.2.25",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
@@ -59,5 +60,17 @@
   },
   "peerDependencies": {
     "domhandler": "5.0.3"
+  },
+  "overrides": {
+    "@universal-robots/ui-angular-components": {
+      "@angular/animations": "$@angular/animations",
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms"
+    },
+    "@universal-robots/ui-models": {
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms"
+    }
   }
 }
