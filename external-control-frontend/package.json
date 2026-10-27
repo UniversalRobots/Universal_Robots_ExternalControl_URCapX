@@ -67,6 +67,10 @@
       "@angular/common": "$@angular/common",
       "@angular/core": "$@angular/core",
       "@angular/forms": "$@angular/forms"
+    },
+    "@universal-robots/ui-models": {
+      "@angular/core": "$@angular/core",
+      "@angular/forms": "$@angular/forms"
     }
   }
 }
