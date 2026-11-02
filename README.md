@@ -19,7 +19,7 @@ for more information.
 Not every PolyScope X version is compatible with every URCapX version. Please see the table below
 for compatibility information.
 
-| URCap Version   | 0.1.0 | 1.0.0 | 1.1.0 | 1.2.0 |
+| URCap Version   | 0.1.0 | 1.0.0 | 1.1.0 | 1.2.x |
 |-----------------|-------|-------|-------|-------|
 | PolyScope 10.7  | ✅    | ✗     | ✗     | ✗     |
 | PolyScope 10.8  | ✅    | ✅    | ✗     | ✗     |
@@ -29,6 +29,7 @@ for compatibility information.
 | PolyScope 10.12 | ?     | ✅    | ✅    | ✅    |
 | PolyScope 10.13 | ?     | ✅    | ✅    | ✅    |
 | PolyScope 10.14 | ?     | ✅*   | ✅*   | ✅    |
+| PolyScope 10.15 | ?     | ?     | ?     | ✅    |
 
 > [!NOTE]
 > \* This combination works, but the program might show up as valid, though program code could
